@@ -60,7 +60,7 @@ table {
 body{
 font-weight: 300;
 font-family: 'Source Sans Pro', sans-serif;
-background: linear-gradient(135deg,#e09,#d0e);
+background: #1A1A1A;
 color: black;
 line-height: 1.2;
 }
