@@ -50,7 +50,7 @@ function App() {
 			<Area>
 				<Container gradient="linear-gradient(135deg,#e09,#d0e)">
 					<Box
-						transition={{type: 'spring', bounce: 0.05}}
+						transition={{type: 'spring', bounce: 0.05, delay: 0.5}}
 						initial={{scale: 0}}
 						animate={{scale: 1, rotateZ: 360}}
 					/>
