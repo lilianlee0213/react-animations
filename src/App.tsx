@@ -49,7 +49,11 @@ function App() {
 		<Wrapper>
 			<Area>
 				<Container gradient="linear-gradient(135deg,#e09,#d0e)">
-					<Box />
+					<Box
+						transition={{type: 'spring', bounce: 0.05}}
+						initial={{scale: 0}}
+						animate={{scale: 1, rotateZ: 360}}
+					/>
 					<Title>Animation</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #d0e, #91f)">
