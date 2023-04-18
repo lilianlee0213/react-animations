@@ -31,11 +31,25 @@ const Container = styled.div<IBox>`
 	background: ${(props) => props.gradient};
 `;
 const Box = styled(motion.div)`
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 	width: 100px;
 	height: 100px;
 	background-color: white;
-	border-radius: 10px;
+	border-radius: 25px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
+	&.box2 {
+		background-color: rgba(255, 255, 255, 0.2);
+		padding: 8px;
+	}
+`;
+const Circle = styled(motion.div)`
+	place-self: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
+	background-color: white;
 `;
 const Title = styled.h1`
 	width: 100%;
@@ -44,6 +58,27 @@ const Title = styled.h1`
 	font-weight: 500;
 	color: white;
 `;
+const boxVariants = {
+	start: {opacity: 0, scale: 0.5},
+	end: {
+		opacity: 1,
+		scale: 1,
+		transition: {
+			type: 'spring',
+			duration: 0.5,
+			bounce: 0.3,
+			delayChildren: 0.5,
+			staggerChildren: 0.25,
+		},
+	},
+};
+const circleVariants = {
+	start: {opacity: 0, y: 10},
+	end: {
+		opacity: 1,
+		y: 0,
+	},
+};
 function App() {
 	return (
 		<Wrapper>
@@ -57,7 +92,16 @@ function App() {
 					<Title>Animation</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #d0e, #91f)">
-					<Box />
+					<Box
+						variants={boxVariants}
+						initial="start"
+						animate="end"
+						className="box2">
+						<Circle variants={circleVariants} />
+						<Circle variants={circleVariants} />
+						<Circle variants={circleVariants} />
+						<Circle variants={circleVariants} />
+					</Box>
 					<Title>Variants</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #91f, #70f)">
