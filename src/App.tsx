@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {BasicMotions} from './components/BasicMotions';
 import {Slider} from './components/Slider';
+import {Layout} from './components/Layout';
 
 const Section = styled.section<{bgColor: string}>`
 	position: relative;
@@ -23,6 +24,9 @@ function App() {
 			</Section>
 			<Section bgColor="white">
 				<Slider />
+			</Section>
+			<Section bgColor="#1a1a1a">
+				<Layout />
 			</Section>
 		</>
 	);
