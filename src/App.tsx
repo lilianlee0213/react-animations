@@ -51,6 +51,7 @@ const Circle = styled(motion.div)`
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
 	background-color: white;
 `;
+
 const Title = styled.h1`
 	width: 100%;
 	text-align: left;
@@ -58,6 +59,7 @@ const Title = styled.h1`
 	font-weight: 500;
 	color: white;
 `;
+// Variants
 const boxVariants = {
 	start: {opacity: 0, scale: 0.5},
 	end: {
@@ -79,6 +81,14 @@ const circleVariants = {
 		y: 0,
 	},
 };
+// Gestures
+const gestures = {
+	hover: {scale: 1.2, rotateZ: 90},
+	click: {scale: 1, borderRadius: '50%'},
+};
+// Drag
+// Scroll
+// Path
 function App() {
 	return (
 		<Wrapper>
@@ -105,7 +115,7 @@ function App() {
 					<Title>Variants</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #91f, #70f)">
-					<Box />
+					<Box variants={gestures} whileHover="hover" whileTap="click" />
 					<Title>Gestures</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #70f, #40f)">
