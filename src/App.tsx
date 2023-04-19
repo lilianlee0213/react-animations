@@ -109,8 +109,12 @@ const Drag = styled(motion.div)`
 // Path
 function App() {
 	const boxContraints = useRef(null);
-	const x = useMotionValue(0);
-	useMotionValueEvent(x, 'change', (value) => console.log(value));
+	const motion1 = useMotionValue(0);
+	const motion2 = useMotionValue(0);
+	const scale = useTransform(motion2, [-150, 0, 150], [2, 1, 0.1]);
+
+	// useMotionValueEvent(motion1, 'change', (value) => console.log(value));
+	// useMotionValueEvent(scale, 'change', (value) => console.log(value));
 	return (
 		<Wrapper>
 			<Area>
@@ -140,11 +144,11 @@ function App() {
 					<Title>Gestures</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #b7ff00, #00ffb3)">
-					<Box drag style={{x}} dragSnapToOrigin />
+					<Box drag="x" style={{x: motion1}} dragSnapToOrigin />
 					<Title>Motion Value</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #33ff00, #00d9ff)">
-					<Box />
+					<Box drag="x" style={{x: motion2, scale: scale}} dragSnapToOrigin />
 					<Title>Motion Value</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #00ff8c, #007bff)">
