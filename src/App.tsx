@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 
@@ -31,25 +31,24 @@ const Container = styled.div<IBox>`
 	background: ${(props) => props.gradient};
 `;
 const Box = styled(motion.div)`
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
 	width: 100px;
 	height: 100px;
 	background-color: white;
-	border-radius: 25px;
+	border-radius: 18px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
 	&.box2 {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
 		background-color: rgba(255, 255, 255, 0.2);
 		padding: 8px;
 	}
-`;
-const Circle = styled(motion.div)`
-	place-self: center;
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
-	background-color: white;
+	&.box3 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgba(255, 255, 255, 0.2);
+		overflow: hidden;
+	}
 `;
 
 const Title = styled.h1`
@@ -60,6 +59,15 @@ const Title = styled.h1`
 	color: white;
 `;
 // Variants
+const Circle = styled(motion.div)`
+	place-self: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
+	background-color: white;
+`;
+
 const boxVariants = {
 	start: {opacity: 0, scale: 0.5},
 	end: {
@@ -87,9 +95,16 @@ const gestures = {
 	click: {scale: 1, borderRadius: '50%'},
 };
 // Drag
+const Drag = styled(motion.div)`
+	width: 70px;
+	height: 70px;
+	background-color: white;
+	border-radius: 16px;
+`;
 // Scroll
 // Path
 function App() {
+	const boxContraints = useRef(null);
 	return (
 		<Wrapper>
 			<Area>
@@ -119,7 +134,14 @@ function App() {
 					<Title>Gestures</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #70f, #40f)">
-					<Box />
+					<Box ref={boxContraints} className="box3">
+						<Drag
+							drag
+							dragConstraints={boxContraints}
+							dragSnapToOrigin
+							dragElastic={0.5}
+						/>
+					</Box>
 					<Title>Drag</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #40f, #05f)">
