@@ -58,11 +58,11 @@ table {
 	box-sizing: border-box;
 }
 body{
-font-weight: 300;
-font-family: 'Source Sans Pro', sans-serif;
-background: #1A1A1A;
-color: black;
-line-height: 1.2;
+  font-weight: 300;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.2;
+  width: 100vw;
+  height: 100vh;
 }
 a{
 	text-decoration: none;
