@@ -25,7 +25,7 @@ function App() {
 			<Section bgColor="white">
 				<Slider />
 			</Section>
-			<Section bgColor="#1a1a1a">
+			<Section bgColor="#e325ad">
 				<Layout />
 			</Section>
 		</>
