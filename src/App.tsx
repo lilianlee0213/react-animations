@@ -4,6 +4,7 @@ import {
 	motion,
 	useMotionValue,
 	useMotionValueEvent,
+	useScroll,
 	useTransform,
 } from 'framer-motion';
 
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
 	align-items: center;
 	margin: 0 auto;
 	width: 100vw;
-	height: 100vh;
+	height: 120vh;
 `;
 const Area = styled.div`
 	display: grid;
@@ -108,13 +109,21 @@ const Inner = styled(motion.div)`
 	border-radius: 16px;
 `;
 // Scroll
+const ScrollInner = styled(motion.div)`
+	width: inherit;
+	height: inherit;
+	background-color: #fff;
+	transform-origin: 50% 100%;
+`;
 // Path
 function App() {
 	//Motion Value
 	const motion1 = useMotionValue(0);
+	// useMotionValueEvent(motion1, 'change', (value) => console.log(value));
 	const motion2 = useMotionValue(0);
 	const motion3 = useMotionValue(0);
 	const scale = useTransform(motion2, [-150, 0, 150], [2, 1, 0.1]);
+	// useMotionValueEvent(scale, 'change', (value) => console.log(value));
 	const rotateZ = useTransform(motion3, [-150, 0, 150], [-360, 0, 360]);
 	const bGgradient = useTransform(
 		motion3,
@@ -125,10 +134,15 @@ function App() {
 			'linear-gradient(180deg, rgb(0, 85, 255), rgb(0, 153, 255))',
 		]
 	);
-	// useMotionValueEvent(motion1, 'change', (value) => console.log(value));
-	// useMotionValueEvent(scale, 'change', (value) => console.log(value));
 	//Drag
 	const boxContraints = useRef(null);
+	//Scroll
+	const {scrollYProgress} = useScroll();
+	// useMotionValueEvent(scrollYProgress, 'change', (latest) =>
+	// 	console.log('Page Scroll', latest)
+	// );
+	const scrollScale = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+
 	return (
 		<Wrapper>
 			<Area>
@@ -185,7 +199,10 @@ function App() {
 					<Title>Drag</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #40f, #05f)">
-					<Box />
+					<Box style={{scale: scrollScale}} className="box3">
+						<ScrollInner style={{scaleY: scrollYProgress}} />
+					</Box>
+
 					<Title>Scroll</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, rgb(0, 85, 255), rgb(0, 153, 255))">
