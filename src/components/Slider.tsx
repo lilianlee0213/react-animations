@@ -17,46 +17,54 @@ const Box = styled(motion.div)`
 	background: linear-gradient(135deg, rgb(0, 255, 51), rgb(0, 187, 255));
 `;
 const boxVariants = {
-	invisible: {
-		x: 500,
-		opacity: 0,
-		scale: 0,
+	entry: (isBack: boolean) => {
+		return {
+			x: isBack ? -500 : 500,
+			opacity: 0,
+			scale: 0,
+		};
 	},
-	visible: {
+	center: {
 		x: 0,
 		opacity: 1,
 		scale: 1,
 		transition: {duration: 0.5},
 	},
-	exit: {
-		x: -500,
+	exit: (isBack: boolean) => ({
+		x: isBack ? 500 : -500,
 		opacity: 0,
 		scale: 0,
 		transition: {duration: 0.5},
-	},
+	}),
 };
 export function Slider() {
 	const [visiable, setVisible] = useState(1);
+	const [back, setBack] = useState(false);
 	const next = () => {
-		setVisible((prev) => (prev === 6 ? 6 : prev + 1));
+		setBack(false);
+		setVisible((curr) => (curr === 6 ? 6 : curr + 1));
+	};
+	const prev = () => {
+		setBack(true);
+		setVisible((curr) => (curr === 1 ? 1 : curr - 1));
 	};
 	return (
 		<>
-			<AnimatePresence>
-				{[1, 2, 3, 4, 5, 6].map((i) =>
-					i === visiable ? (
-						<Box
-							key={i}
-							variants={boxVariants}
-							initial="invisible"
-							animate="visible"
-							exit="exit">
-							{i}
-						</Box>
-					) : null
-				)}
+			<AnimatePresence custom={back}>
+				<Box
+					custom={back}
+					variants={boxVariants}
+					initial="entry"
+					animate="center"
+					exit="exit"
+					key={visiable}>
+					{visiable}
+				</Box>
 			</AnimatePresence>
-			<button onClick={next}>Next</button>
+			<div>
+				<button onClick={prev}>Prev</button>
+				<button onClick={next}>Next</button>
+			</div>
 		</>
 	);
 }
