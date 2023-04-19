@@ -41,6 +41,8 @@ const Box = styled(motion.div)`
 	background-color: white;
 	border-radius: 18px;
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) 0 10px 20px rgba(0, 0, 0, 0.96);
+	overflow: hidden;
+
 	&.box2 {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -99,7 +101,7 @@ const gestures = {
 	click: {scale: 1, borderRadius: '50%'},
 };
 // Drag
-const Drag = styled(motion.div)`
+const Inner = styled(motion.div)`
 	width: 70px;
 	height: 70px;
 	background-color: white;
@@ -108,13 +110,25 @@ const Drag = styled(motion.div)`
 // Scroll
 // Path
 function App() {
-	const boxContraints = useRef(null);
+	//Motion Value
 	const motion1 = useMotionValue(0);
 	const motion2 = useMotionValue(0);
+	const motion3 = useMotionValue(0);
 	const scale = useTransform(motion2, [-150, 0, 150], [2, 1, 0.1]);
-
+	const rotateZ = useTransform(motion3, [-150, 0, 150], [-360, 0, 360]);
+	const bGgradient = useTransform(
+		motion3,
+		[-150, 0, 150],
+		[
+			'linear-gradient(180deg, rgb(153, 17, 255), rgb(119, 0, 255))',
+			'linear-gradient(180deg, rgb(255, 255, 255), rgb(255, 255, 255))',
+			'linear-gradient(180deg, rgb(0, 85, 255), rgb(0, 153, 255))',
+		]
+	);
 	// useMotionValueEvent(motion1, 'change', (value) => console.log(value));
 	// useMotionValueEvent(scale, 'change', (value) => console.log(value));
+	//Drag
+	const boxContraints = useRef(null);
 	return (
 		<Wrapper>
 			<Area>
@@ -139,25 +153,29 @@ function App() {
 					</Box>
 					<Title>Variants</Title>
 				</Container>
-				<Container gradient="linear-gradient(180deg, #91f, #70f)">
+				<Container gradient="linear-gradient(180deg, rgb(153, 17, 255), rgb(119, 0, 255))">
 					<Box variants={gestures} whileHover="hover" whileTap="click" />
 					<Title>Gestures</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #b7ff00, #00ffb3)">
 					<Box drag="x" style={{x: motion1}} dragSnapToOrigin />
-					<Title>Motion Value</Title>
+					<Title>Motion Value1</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #33ff00, #00d9ff)">
 					<Box drag="x" style={{x: motion2, scale: scale}} dragSnapToOrigin />
-					<Title>Motion Value</Title>
+					<Title>Motion Value2</Title>
 				</Container>
-				<Container gradient="linear-gradient(180deg, #00ff8c, #007bff)">
-					<Box />
-					<Title>Motion Value</Title>
+				<Container gradient="linear-gradient(180deg, rgb(0, 255, 140), rgb(0, 123, 255))">
+					<Box
+						drag="x"
+						style={{x: motion3, rotateZ: rotateZ, background: bGgradient}}
+						dragSnapToOrigin
+					/>
+					<Title>Motion Value3</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #70f, #40f)">
 					<Box ref={boxContraints} className="box3">
-						<Drag
+						<Inner
 							drag
 							dragConstraints={boxContraints}
 							dragSnapToOrigin
@@ -170,7 +188,7 @@ function App() {
 					<Box />
 					<Title>Scroll</Title>
 				</Container>
-				<Container gradient="linear-gradient(180deg, #05f, #09f)">
+				<Container gradient="linear-gradient(180deg, rgb(0, 85, 255), rgb(0, 153, 255))">
 					<Box />
 					<Title>Path</Title>
 				</Container>
