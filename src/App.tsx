@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {BasicMotions} from './components/BasicMotions';
 import {Slider} from './components/Slider';
 import {Layout} from './components/Layout';
+import {Cards} from './components/Cards';
 
 const Section = styled.section<{bgColor: string}>`
 	position: relative;
@@ -12,8 +13,10 @@ const Section = styled.section<{bgColor: string}>`
 	align-items: center;
 	margin: 0 auto;
 	background: ${(props) => props.bgColor};
-	padding: 100px 0;
 	min-height: 700px;
+	:not(:last-child) {
+		padding: 100px 0;
+	}
 `;
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
 			</Section>
 			<Section bgColor="#e325ad">
 				<Layout />
+			</Section>
+			<Section bgColor="#B006FF">
+				<Cards />
 			</Section>
 		</>
 	);
