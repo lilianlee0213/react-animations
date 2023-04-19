@@ -1,6 +1,11 @@
 import React, {useRef} from 'react';
 import styled from 'styled-components';
-import {motion} from 'framer-motion';
+import {
+	motion,
+	useMotionValue,
+	useMotionValueEvent,
+	useTransform,
+} from 'framer-motion';
 
 interface IBox {
 	gradient?: string;
@@ -47,7 +52,6 @@ const Box = styled(motion.div)`
 		justify-content: center;
 		align-items: center;
 		background-color: rgba(255, 255, 255, 0.2);
-		overflow: hidden;
 	}
 `;
 
@@ -105,6 +109,8 @@ const Drag = styled(motion.div)`
 // Path
 function App() {
 	const boxContraints = useRef(null);
+	const x = useMotionValue(0);
+	useMotionValueEvent(x, 'change', (value) => console.log(value));
 	return (
 		<Wrapper>
 			<Area>
@@ -132,6 +138,18 @@ function App() {
 				<Container gradient="linear-gradient(180deg, #91f, #70f)">
 					<Box variants={gestures} whileHover="hover" whileTap="click" />
 					<Title>Gestures</Title>
+				</Container>
+				<Container gradient="linear-gradient(180deg, #b7ff00, #00ffb3)">
+					<Box drag style={{x}} dragSnapToOrigin />
+					<Title>Motion Value</Title>
+				</Container>
+				<Container gradient="linear-gradient(180deg, #33ff00, #00d9ff)">
+					<Box />
+					<Title>Motion Value</Title>
+				</Container>
+				<Container gradient="linear-gradient(180deg, #00ff8c, #007bff)">
+					<Box />
+					<Title>Motion Value</Title>
 				</Container>
 				<Container gradient="linear-gradient(180deg, #70f, #40f)">
 					<Box ref={boxContraints} className="box3">
