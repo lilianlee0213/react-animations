@@ -1,12 +1,7 @@
 import {useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import styled from 'styled-components';
-const Area = styled.div`
-	position: relative;
-	padding: 100px 0;
-	width: 100%;
-	height: 700px;
-`;
+
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -35,28 +30,25 @@ const Overlay = styled(motion.div)`
 	z-index: 1;
 `;
 export function Cards() {
-	const [clicked, setClicked] = useState(false);
-	const toggleClicked = () => {
-		setClicked((prev) => !prev);
-	};
+	const [id, setId] = useState<null | string>(null);
 	return (
-		<Area onClick={toggleClicked}>
+		<>
 			<Grid>
-				<Box layoutId="hello" />
-				<Box />
-				<Box />
-				<Box />
+				{['1', '2', '3', '4'].map((n) => (
+					<Box onClick={() => setId(n)} key={n} layoutId={n} />
+				))}
 			</Grid>
 			<AnimatePresence>
-				{clicked ? (
+				{id ? (
 					<Overlay
+						onClick={() => setId(null)}
 						initial={{backgroundColor: 'rgba(0, 0, 0, 0)'}}
 						animate={{backgroundColor: 'rgba(0, 0, 0, .5)'}}
 						exit={{backgroundColor: 'rgba(0, 0, 0, 0)'}}>
-						<Box style={{width: 400, height: 300}} layoutId="hello" />
+						<Box style={{width: 400, height: 200}} layoutId={id} />
 					</Overlay>
 				) : null}
 			</AnimatePresence>
-		</Area>
+		</>
 	);
 }

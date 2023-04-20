@@ -14,9 +14,7 @@ const Section = styled.section<{bgColor: string}>`
 	margin: 0 auto;
 	background: ${(props) => props.bgColor};
 	min-height: 700px;
-	:not(:last-child) {
-		padding: 100px 0;
-	}
+	padding: 100px 0;
 `;
 
 function App() {
